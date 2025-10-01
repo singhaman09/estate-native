@@ -1,10 +1,21 @@
 import icons from "@/constants/icons";
 import images from "@/constants/images";
+import { login } from "@/lib/appwrite";
 import React from "react";
-import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { Alert, Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const SignIn = () => {
+    const handleLogin= async()=>{
+        const result=await login();
+        if (result){
+            console.log("Login successfull")
+        }
+        else{
+            Alert.alert('Error','Failed to login')
+        }
+
+    };
     return (
         <SafeAreaView className="bg-white h-full">
             <ScrollView contentContainerStyle={{ flexGrow: 1}}>
@@ -31,14 +42,14 @@ const SignIn = () => {
                     <Text className="text-lg font-rubik text-black-200 text-center mt-12">
                         Login to ReState with Google
                     </Text>
-                    <TouchableOpacity className="bg-white shadow-md shadow-zinc-300 rounded-full w-full py-3 mt-5 mb-3">
+                    <TouchableOpacity onPress={handleLogin} className="bg-white shadow-md shadow-zinc-300 rounded-full w-full py-3 mt-5 mb-3">
                         <View className="flex flex-row items-center justify-center">
                             <Image
                                 source={icons.google}
                                 className="w-5 h-5"
                                 resizeMode="contain"
                             />
-                            <Text className="tex-lg font-rubik-medium text-black-300 ml-2">Continue With Google</Text>
+                            <Text className="text-lg font-rubik-medium text-black-300 ml-2">Continue With Google</Text>
                         </View>
                     </TouchableOpacity>
                 </View>

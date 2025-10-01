@@ -1,6 +1,7 @@
 import { Account, Avatars, Client, OAuthProvider } from "react-native-appwrite"
 import * as Linking from 'expo-linking';
 import * as WebBrowser from 'expo-web-browser';
+
 export const config = {
     platform: 'com.jsm.restate',
     endpoint: process.env.EXPO_PUBLIC_APPWRITE_ENDPOINT,
@@ -50,6 +51,25 @@ export async function logout() {
     try{
         await account.deleteSession('current');
         return true;
+    }
+    catch(error){
+        console.error(error)
+        return false;
+    }
+    
+
+}
+
+export async function getCurrentUser() {
+    try{
+        const response=await account.get();
+        if(response. $id){
+            const userAvatar= avatar.getInitials(response.name)
+            return {
+                ...response,
+                avatar:userAvatar.toString()
+            }
+        }
     }
     catch(error){
         console.error(error)
